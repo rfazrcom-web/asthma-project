@@ -137,7 +137,7 @@ def page_dashboard(patient: dict | None) -> None:
         df = pd.DataFrame(history).iloc[::-1]
         df["ts"] = pd.to_datetime(df["ts"])
 
-        fig = go.Figure()
+        fig = go.Figure()https://406cd811-3b7b-4b07-abc4-cf6465f153af-00-u6go3v1qajlv.riker.replit.dev:5000/
         fig.add_trace(
             go.Scatter(
                 x=df["ts"], y=df["spo2"], mode="lines+markers",
@@ -262,8 +262,18 @@ def page_monitor(patient: dict | None) -> None:
             mode = random.choices(
                 ["normal", "elevated", "attack"], weights=[6, 3, 1]
             )[0]
-            _capture(simulate_reading(mode, patient["age"]), patient)
+             reading=_capture(simulate_reading(mode, patient["age"]), patient)
 
+             from monitor import analyze_health_status
+             status, message = analyze_health_status(reading['oxygen'], reading['heart_rate'], reading['respiratory_rate'])
+         if status == "Danger":
+             st.error(message)
+             st.toast("اتصل بالطبيب إذا لم تتحسن الحالة"icon="🚨")
+           
+        elif status == "Warning":
+        st.warning(message)
+        else:
+        st.success(message)
     st.markdown("---")
     st.subheader("Or enter a reading manually")
 
