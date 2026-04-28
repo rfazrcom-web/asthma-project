@@ -11,7 +11,7 @@ import pandas as pd
 import plotly.graph_objects as go
 import streamlit as st
 
-from lib import database as db
+import database as db
 from lib.monitor import SUGGESTED_ACTIONS, analyze_reading
 from lib.simulator import ALL_TRIGGERS, simulate_reading
 
