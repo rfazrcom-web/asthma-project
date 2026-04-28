@@ -143,3 +143,14 @@ SUGGESTED_ACTIONS = {
         "Continue any prescribed daily controller medication",
     ],
 }
+def analyze_health_status(oxygen, heart_rate, respiratory_rate):
+score = 0
+if oxygen < 92: score += 3
+if heart_rate > 100 or heart_rate < 60: score += 2
+if respiratory_rate > 25: score += 2
+if score >= 5:
+return "Danger", "⚠️ تنبيه: احتمالية عالية لنوبة ربو، يرجى استخدام الموسع فوراً."
+elif score >= 2:
+return "Warning", "🟡 ملاحظة: المؤشرات غير مستقرة، يرجى الراحة."
+else:
+return "Stable", "✅ الحالة مستقرة."
