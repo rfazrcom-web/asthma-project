@@ -12,8 +12,8 @@ import plotly.graph_objects as go
 import streamlit as st
 
 import database as db
-from lib.monitor import SUGGESTED_ACTIONS, analyze_reading
-from lib.simulator import ALL_TRIGGERS, simulate_reading
+from monitor import SUGGESTED_ACTIONS, analyze_reading
+from simulator import ALL_TRIGGERS, simulate_reading
 
 st.set_page_config(
     page_title="Smart Asthma Monitor",
