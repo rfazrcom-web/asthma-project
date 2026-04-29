@@ -137,7 +137,7 @@ def page_dashboard(patient: dict | None) -> None:
         df = pd.DataFrame(history).iloc[::-1]
         df["ts"] = pd.to_datetime(df["ts"])
 
-        fig = go.Figure()https://406cd811-3b7b-4b07-abc4-cf6465f153af-00-u6go3v1qajlv.riker.replit.dev:5000/
+        fig = go.Figure()
         fig.add_trace(
             go.Scatter(
                 x=df["ts"], y=df["spo2"], mode="lines+markers",
@@ -264,16 +264,30 @@ def page_monitor(patient: dict | None) -> None:
             )[0]
              reading=_capture(simulate_reading(mode, patient["age"]), patient)
 
-             from monitor import analyze_health_status
-             status, message = analyze_health_status(reading['oxygen'], reading['heart_rate'], reading['respiratory_rate'])
-         if status == "Danger":
-             st.error(message)
-             st.toast("اتصل بالطبيب إذا لم تتحسن الحالة"icon="🚨")
-           
+            
+    if s4.button("🎲 Random sample", use_container_width=True):
+        import random
+        mode = random.choices(
+            ["normal", "elevated", "attack"], weights=[6, 3, 1]
+        )[0]
+        reading = _capture(simulate_reading(mode, patient["age"]), patient)
+
+        from monitor import analyze_health_status
+        # استخدام قيم افتراضية في حال فقدان أي قراءة
+        oxygen = reading.get('oxygen', 98)
+        heart = reading.get('heart_rate', 75)
+        resp = reading.get('respiratory_rate', 16)
+
+        status, message = analyze_health_status(oxygen, heart, resp)
+
+        if status == "Danger":
+            st.error(message)
+            st.toast("اتصل بالطبيب إذا لم تتحسن الحالة", icon="🚨")
         elif status == "Warning":
-        st.warning(message)
+            st.warning(message)
         else:
-        st.success(message)
+            st.success(message)
+
     st.markdown("---")
     st.subheader("Or enter a reading manually")
 
