@@ -258,11 +258,9 @@ def page_monitor(patient: dict | None) -> None:
         if s3.button("🔴 Attack sample", use_container_width=True):
             _capture(simulate_reading("attack", patient["age"]), patient)
         if s4.button("🎲 Random sample", use_container_width=True):
-    import random
-    mode = random.choices(
-    ["normal", "elevated", "attack"], weights=[6, 3, 1]
-    )[0] 
-    reading = _capture(simulate_reading(mode, patient["age"]), patient)
+        import random
+        mode = random.choices(["normal", "elevated", "attack"], weights=[6, 3, 1])[0]
+        reading = _capture(simulate_reading(mode, patient["age"]), patient)
 
         from monitor import analyze_health_status
         # استخدام قيم افتراضية في حال فقدان أي قراءة
@@ -279,6 +277,7 @@ def page_monitor(patient: dict | None) -> None:
             st.warning(message)
         else:
             st.success(message)
+
 
     st.markdown("---")
 
