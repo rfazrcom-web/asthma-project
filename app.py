@@ -9,12 +9,12 @@ from datetime import datetime
 
 import pandas as pd
 import plotly.graph_objects as go
-import streamlit as st
+# test
 
+import streamlit as st 
 import database as db
-
-    from monitor import SUGGSTED_ACTIONS, analyze_reading
-    from simulator import ALL_TRIGGERS, simulate_reading
+from monitor import SUGGSTED_ACTIONS, analyze_reading
+from simulator import ALL_TRIGGERS, simulate_reading
 
 st.set_page_config(
     page_title="Smart Asthma Monitor",
